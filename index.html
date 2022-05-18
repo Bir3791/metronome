@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>metronome</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/metronome.js" defer></script>
+</head>
+<body>
+    <!-- зробив тимчасову верстку щоб попрацювати над js файлом -->
+    <div class="container-main">
+        
+        <div class="container-metronom">
+            <div class="arrow">
+            </div>
+        </div>
+
+        <input type="number" class="bpm" id="bpm" onchange="inteval(this.value)">
+        <label for="bpm">input bpm</label>
+        
+        <button class="listener">
+            listener
+        </button>
+        
+        <button class="start">
+            start
+        </button>
+
+        <button class="stop">
+            stop
+        </button>
+
+    </div>
+    <!-- зробив тимчасову верстку щоб попрацювати над js файлом -->
+</body>
+</html>

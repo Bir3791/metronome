@@ -1,0 +1,34 @@
+.container-main{
+    width: 700px;
+    margin: auto;
+    background-color: aqua;
+    padding: 5px 20px;
+}
+
+.container-metronom{
+    width: 500px;
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    position: relative;
+    height: 25px;
+    
+}
+
+.arrow{
+    background-color: yellow;
+    display: inline-block;
+    border: 1px solid black;
+    width: 50px;
+    height: 25px;
+    border-radius: 5px;
+    position: absolute;
+    box-sizing: border-box;
+    left: 0%;
+    /* transition: 1s; */
+}
+
+button{
+    margin: 10px;
+    
+}
