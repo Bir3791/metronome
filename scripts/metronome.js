@@ -2,66 +2,94 @@ const arrow = document.querySelector(`.arrow`);
 const startBtn = document.querySelector(`.start`);
 const bpmInput = document.getElementById(`.bpm`);
 const stopBtn = document.querySelector(`.stop`);
+const listenerBtn = document.querySelector(`.listener`);
 let calk;
 let startPosition = 0;
-let intervalID
+let intervalID;
+let audio = document.querySelector(".audio");
+audio.preload;
+let work = false;
+
+listenerBtn.addEventListener("click", listener);
+
+let firstClick;
+const dateArr = [];
+let count = 0;
+
+function listener() {
+if(work === false){
+  if (count < 12){
+  let date = new Date();
+  dateArr.push(date)
+    count++;
+  }
+  else {
+    let tempCalk = 0;
+    for (let index = 0; index < dateArr.length-1; index++) {
+      tempCalk = tempCalk + (dateArr[index + 1] - dateArr[index]);
+    }
+    calk = (tempCalk / dateArr.length - 1);
+    startMetronome(calk);
+    dateArr.length = 0;
+    tempCalk = 0;
+    count = 0;
+    work = true;
+    }
+  } 
+}
 
 
-    
-stopBtn.addEventListener("click", ()=>{clearInterval(intervalID);
+stopBtn.addEventListener("click", () => {
+  clearInterval(intervalID);
+  work = false;
 });
 
-startBtn.addEventListener("click", inteval);
+startBtn.addEventListener("click", calculateInterval);
 
+function soundAndArrow() {
+  audio.play();
+  if (startPosition == 0) {
+    startPosition = 90;
 
-function inteval(interval) {
-    calkFrequency(interval);
+    animate({
+      duration: calk,
+      timing(timeFraction) {
+        return timeFraction;
+      },
+      draw(progress) {
+        arrow.style.left = progress * startPosition + "%";
+      },
+    });
+    console.log(1);
+  } else {
+    animate({
+      duration: calk,
+      timing(timeFraction) {
+        return timeFraction;
+      },
+      draw(progress) {
+        arrow.style.left = 90 - 90 * progress + "%";
+      },
+    });
+    startPosition = 0;
+  }
 }
 
-function calkFrequency(interval) {
-    clearInterval(intervalID);
-    let beep = interval / 60;
-    calk = 1000 / beep;
-    console.log(`${calk}`);
+function calculateInterval() {
+  let input = document.getElementById(`bpm`);
+  input = input.value;
+  work = true;
+  if (input > 0){ clearInterval(intervalID);
+  let beep = input / 60;
+  calk = 1000 / beep;
+  console.log(`${calk}`);
     console.log(calk);
-    intervalID = setInterval(moveArrow, calk);
+    startMetronome(calk);
+  }
 }
 
-function moveArrow() {
-    if (startPosition == 0) {
-        
-        startPosition = 90;
-       
-        animate({
-          duration: calk,
-          timing(timeFraction) {
-            return timeFraction;
-          },
-          draw(progress) {
-            arrow.style.left = progress * startPosition + "%";
-          },
-        });
-        console.log(1)
-    } else {
-        animate({
-          duration: calk,
-          timing(timeFraction) {
-            return timeFraction;
-          },
-          draw(progress) {
-              arrow.style.left = 90 - 90 * progress + "%";
-          },
-        });
-        startPosition = 0;
-    }
-    
-    
-
-    
-}
-
-function startMetronome() {
-    
+function startMetronome(interval) {
+  intervalID = setInterval(soundAndArrow, interval);
 }
 
 function animate({ timing, draw, duration }) {

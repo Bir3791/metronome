@@ -16,13 +16,14 @@
             <div class="arrow">
             </div>
         </div>
-
-        <input type="number" class="bpm" id="bpm" onchange="inteval(this.value)">
+        <audio src="sound/click1.wav" class="audio"></audio>
+        <input type="number" class="bpm" id="bpm">
         <label for="bpm">input bpm</label>
         
-        <button class="listener">
+        <button class="listener" id = "listener">
             listener
         </button>
+        <label for="listener">push ritm for start</label>
         
         <button class="start">
             start
